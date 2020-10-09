@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+.main-nav {
+    background-color: #1505bb;
+    font-family: Merriweather, Cambria, Georgia;
+}
+
+.main-nav a {
+    color: white;
+}
+
+.main-nav a:hover {
+    color: grey;
+}
