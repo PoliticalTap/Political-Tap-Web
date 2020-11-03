@@ -10,3 +10,7 @@
 .main-nav a:hover {
     color: grey;
 }
+
+.brand {
+    pointer-events: none;
+}

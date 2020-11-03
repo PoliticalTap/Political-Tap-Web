@@ -1,0 +1,49 @@
+.accordion {
+  background-color: #dd1111;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 20px;
+  transition: 0.4s;
+  font-family: Merriweather, Cambria, Georgia;
+  /* outline-style: solid; */
+  /* outline-color: black; */
+  box-shadow: 0 0 0 2px black;
+  border-radius: 5px;
+}
+
+.active, .accordion:hover {
+  background-color: #ff0028
+}
+
+.panel {
+  padding: 15px;
+  background-color: white;
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.btn-profile
+{
+  color: white;
+  background-color: #1505bb;
+  font-family: Merriweather, Cambria, Georgia;
+}
+
+::selection 
+{
+    color: white; 
+    background: #1505bb;
+}
+
+::-moz-selection 
+{ 
+    /* Code for Firefox */
+    color: white;
+    background: #1505bb;
+}
