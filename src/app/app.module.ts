@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
 import { BallotComponent } from './ballot/ballot.component';
+import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
-    BallotComponent
+    BallotComponent,
+    CandidateProfileComponent
   ],
   imports: [
     BrowserModule,
