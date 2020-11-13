@@ -11,8 +11,8 @@
                     alt="Card image cap" height="256" width="256">
                 <div class="card-body">
                     <h5 class="card-title">{{ candidate.name }}</h5>
-                    <p class="card-text">{{ candidate.description }}</p>
-                    <a href="#" class="btn btn-profile">View Profile</a>
+                    <p class="card-text">{{ candidate.party }}</p>
+                    <a [routerLink]="['/candidate', candidate.candidate_id]" class="btn btn-profile">View Profile</a>
                 </div>
             </div>
         </div>
