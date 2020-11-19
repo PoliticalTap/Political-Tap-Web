@@ -1,1 +1,106 @@
-<p>{{candidate_id}}</p>
+<div class="container-fluid" style="padding-top: 10px;">
+    <div class="row"> 
+        <div style="padding-left: 10px;">
+            <img [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
+                style="width: 128; border-radius: 30%;"
+                alt="Card image cap">
+        </div>
+        <div class="col-md-9 name">
+            <h2>{{candidate.name}}</h2> 
+        </div>
+    </div>
+</div>
+
+<!-- <div class="leftside" style="padding-left: 30px;">
+    <h4>  Social Media Links  </h4>
+
+  <ul class="socialmediaicons">
+    <li><a target="_blank" href="https://www.facebook.com/joebiden/" rel="https://www.facebook.com/joebiden/" ><i class="fa 
+fa-facebook"></i></a></li>
+    <li><i class="fa fa-instagram"></i></li>
+    <li><i class="fa fa-twitter"></i></li>
+    <li><i class="fa fa-youtube"></i></li>
+  </ul>
+</div> -->
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Twitter Feed</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Votes</a>
+        </li>
+    </ul>
+</div>
+<div>
+    <div>
+        <div><b>Birth-Date:</b></div>
+        <div>{{candidate.birthDate}}</div>
+    </div>
+    <div class="row no-gutters">
+        <div><b>Gender:</b></div>
+        <div>{{candidate.gender}}</div>
+    </div>
+    <div class="row no-gutters">
+        <div><b>Religion:</b></div>
+        <div>{{candidate.religion}}</div>
+    </div>
+    <div class="row no-gutters">
+        <div><b>Home City:</b></div>
+        <div>{{candidate.homeCity}}, {{candidate.homeState}}</div>
+    </div>
+    <div>
+        <div><b>Family:</b></div>
+        <div>{{candidate.family}}</div>
+    </div>
+    <div>
+        <div><b>Party:</b></div>
+        <div>{{candidate.party}}</div>
+    </div>
+    <div>
+        <div><b>Office:</b></div>
+        <div>Type: {{candidate.office.type}}</div>
+        <div>Position: {{candidate.office.title}}</div>
+        <div>Status: {{candidate.office.status}}</div>
+    </div>
+
+    <div>
+        <b>Education</b>
+        <ul>
+            <div *ngFor="let institution of candidate.education.institution">
+                <li>{{institution.fullText}}</li>
+            </div>
+        </ul>
+    </div>
+
+    <div>
+        <b>Professional Experience</b>
+        <ul>
+            <div *ngFor="let experience of candidate.profession.experience">
+                <li>{{experience.fullText}}</li>
+            </div>
+        </ul>
+    </div>
+
+    <div>
+        <b>Political Experience</b>
+        <ul>
+            <div *ngFor="let experience of candidate.political.experience">
+                <li>{{experience.fullText}}</li>
+            </div>
+        </ul>
+    </div>
+
+    <div>
+        <b>Organizational Membership</b>
+        <ul>
+            <div *ngFor="let experience of candidate.orgMembership.experience">
+                <li>{{experience.fullText}}</li>
+            </div>
+        </ul>
+    </div>
+</div>

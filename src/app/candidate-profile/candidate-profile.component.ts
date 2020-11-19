@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute, ParamMap} from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
+import { CandidateService } from '../candidate.service';
 
 @Component({
   selector: 'app-candidate-profile',
@@ -8,15 +9,22 @@ import {Router, ActivatedRoute, ParamMap} from '@angular/router'
 })
 export class CandidateProfileComponent implements OnInit {
   candidate_id: string;
+  candidate: any;
 
-  constructor(private route: ActivatedRoute) { 
-
+  constructor(private route: ActivatedRoute,
+    private candidateService : CandidateService) { 
   }
 
   ngOnInit(): void {
     this.candidate_id = this.route.snapshot.paramMap.get("id");
-    console.log(this.candidate_id);
+    this.getCandidate();
   }
 
-
+  getCandidate() {
+    this.candidateService.getCandidateProfile(this.candidate_id)
+      .subscribe(candidateBio => {
+        this.candidate = candidateBio;
+        console.log(this.candidate);
+      });
+  }
 }

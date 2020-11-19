@@ -1,0 +1,9 @@
+.row .name {
+    display: table-cell;
+    vertical-align: bottom;
+    float: none;
+  }
+
+.row {
+  display: table;
+}
