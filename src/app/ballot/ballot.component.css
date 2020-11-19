@@ -23,7 +23,7 @@
 .panel {
   padding: 15px;
   background-color: white;
-  max-height: 1000px;
+  height: auto;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
@@ -33,6 +33,7 @@
   color: white;
   background-color: #1505bb;
   font-family: Merriweather, Cambria, Georgia;
+  margin-bottom:5px;
 }
 
 ::selection 

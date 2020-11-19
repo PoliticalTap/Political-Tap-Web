@@ -7,13 +7,19 @@ import { Observable } from 'rxjs';
 })
 export class CandidateService {
 
-  private url = "https://political-tap.herokuapp.com/testCandidate";
+  private url = "https://political-tap.herokuapp.com";
 
   constructor(private httpClient: HttpClient) { }
 
   getCandidatesByZip(zip: string): Observable<any> {
     let params = new HttpParams().set('zip', zip);
 
-    return this.httpClient.get(this.url, { params });
+    return this.httpClient.get(this.url + '/testCandidate', { params });
+  }
+
+  getCandidateProfile(candidateId: string): Observable<any> {
+    let params = new HttpParams().set('candidate_id', candidateId);
+
+    return this.httpClient.get(this.url + "/getCandidate", { params });
   }
 }
