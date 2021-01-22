@@ -27,4 +27,14 @@ export class CandidateProfileComponent implements OnInit {
         console.log(this.candidate);
       });
   }
+
+  toggleAccordian(event) {
+    var element = event.target;
+    var panel = element.nextElementSibling;
+
+    element.classList.toggle("active");
+    // this.data[index].isActive = !this.data[index].isActive;
+
+    panel.hidden = !panel.hidden;
+  }
 }
