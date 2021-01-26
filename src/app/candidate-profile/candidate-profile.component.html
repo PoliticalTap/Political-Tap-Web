@@ -5,6 +5,7 @@
                 style="width: 128; border-radius: 30%;"
                 alt="Card image cap">
         </div>
+
         <div class="col-md-9 name">
             <h2>{{candidate.name}}</h2>
             <div class="leftside">
@@ -26,16 +27,17 @@
 <div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="#">About</a>
+            <button class="nav-link active" (click)="changeTab($event)">About</button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Twitter Feed</a>
+            <button class="nav-link" (click)="changeTab($event)">Twitter Feed</button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Votes</a>
+            <button class="nav-link" (click)="changeTab($event)">Votes</button>
         </li>
     </ul>
 </div>
+
 <div>
     <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
     <div class="panel">
@@ -108,5 +110,11 @@
                 </div>
             </ul>
         </div>
+    </div>
+</div>
+
+<div [hidden]="isTwitterFeedActive">
+    <div *ngFor="let tweet of candidateTweets.tweets">
+        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
     </div>
 </div>

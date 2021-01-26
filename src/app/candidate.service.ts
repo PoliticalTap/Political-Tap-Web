@@ -22,4 +22,10 @@ export class CandidateService {
 
     return this.httpClient.get(this.url + "/getCandidate", { params });
   }
+
+  getCandidateTweets(candidateId: string): Observable<any> {
+    let params = new HttpParams().set('candidate_id', candidateId);
+
+    return this.httpClient.get(this.url + "/getCandidateTweets", { params });
+  }
 }
