@@ -28,7 +28,7 @@ export class BallotComponent implements OnInit {
   }
 
   getCandidates() {
-    this.candidateService.getCandidatesByZip(this.zip)
+    this.candidateService.getCandidatesByZip(sessionStorage.getItem('zip'))
       .subscribe(candidates => 
         {
           this.data = candidates; 

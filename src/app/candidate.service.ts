@@ -14,7 +14,7 @@ export class CandidateService {
   getCandidatesByZip(zip: string): Observable<any> {
     let params = new HttpParams().set('zip', zip);
 
-    return this.httpClient.get(this.url + '/testCandidate', { params });
+    return this.httpClient.get(this.url + '/getCandidateList', { params });
   }
 
   getCandidateProfile(candidateId: string): Observable<any> {
@@ -27,5 +27,13 @@ export class CandidateService {
     let params = new HttpParams().set('candidate_id', candidateId);
 
     return this.httpClient.get(this.url + "/getCandidateTweets", { params });
+  }
+
+  getUserZipFromCoords(latitude: string, longitude: string): Observable<any> {
+    let params = new HttpParams()
+                      .set('latitude', latitude)
+                      .set('longitude', longitude);
+    
+    return this.httpClient.get(this.url + '/getZipFromLocation', { params });
   }
 }

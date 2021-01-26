@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CandidateService } from '../candidate.service';
 
 @Component({
   selector: 'app-feed',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class FeedComponent implements OnInit {
   test = true;
 
-  constructor() { }
+  constructor(private candidateService: CandidateService) { }
 
   ngOnInit(): void {
     if (!navigator.geolocation) {
@@ -16,8 +17,10 @@ export class FeedComponent implements OnInit {
     }
 
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
+      this.candidateService.getUserZipFromCoords(position.coords.latitude.toString(), position.coords.longitude.toString())
+        .subscribe(zip => {
+          sessionStorage.setItem('zip', zip);
+        });
     });
   }
-
 }
