@@ -22,8 +22,6 @@
     </div>
 </div>
 
-
-
 <div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -38,7 +36,7 @@
     </ul>
 </div>
 
-<div>
+<div [hidden]="isAboutActive">
     <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
     <div class="panel">
         <div>
