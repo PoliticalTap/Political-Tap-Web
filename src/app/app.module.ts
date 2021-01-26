@@ -7,18 +7,20 @@ import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
 import { BallotComponent } from './ballot/ballot.component';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
+import { NgxTweetModule } from "ngx-tweet";
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
     BallotComponent,
-    CandidateProfileComponent
+    CandidateProfileComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxTweetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

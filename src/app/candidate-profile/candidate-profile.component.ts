@@ -10,6 +10,11 @@ import { CandidateService } from '../candidate.service';
 export class CandidateProfileComponent implements OnInit {
   candidate_id: string;
   candidate: any;
+  candidateTweets;
+
+  isAboutActive: boolean = false;
+  isTwitterFeedActive: boolean = true;
+  isVotesActive: boolean = true;
 
   constructor(private route: ActivatedRoute,
     private candidateService : CandidateService) { 
@@ -18,6 +23,7 @@ export class CandidateProfileComponent implements OnInit {
   ngOnInit(): void {
     this.candidate_id = this.route.snapshot.paramMap.get("id");
     this.getCandidate();
+    this.getCandidateTweets();
   }
 
   getCandidate() {
@@ -26,5 +32,21 @@ export class CandidateProfileComponent implements OnInit {
         this.candidate = candidateBio;
         console.log(this.candidate);
       });
+  }
+
+  getCandidateTweets() {
+    this.candidateService.getCandidateTweets(this.candidate_id)
+      .subscribe(tweets => {
+        this.candidateTweets = tweets;
+        console.log(this.candidateTweets);
+      });
+  }
+
+  changeTab(event) : void {
+    var element = event.target.textContent;
+
+    this.isAboutActive = element !== "About";
+    this.isTwitterFeedActive = element !== "Twitter Feed";
+    this.isVotesActive = element !== "Votes";
   }
 }
