@@ -36,7 +36,7 @@ fa-facebook"></i></a></li>
         </li>
     </ul>
 </div>
-<div [hidden]="isAboutActive">
+<div style="margin-left: 20px;" [hidden]="isAboutActive">
     <div>
         <div><b>Birth-Date:</b></div>
         <div>{{candidate.birthDate}}</div>
@@ -105,7 +105,7 @@ fa-facebook"></i></a></li>
     </div>
 </div>
 
-<div [hidden]="isTwitterFeedActive">
+<div style="margin-left: 20px;" [hidden]="isTwitterFeedActive">
     <div *ngFor="let tweet of candidateTweets.tweets">
         <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
     </div>

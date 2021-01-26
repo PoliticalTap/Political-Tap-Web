@@ -11,6 +11,13 @@ export class FeedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (!navigator.geolocation) {
+      console.log("Location is not supported on this device!");
+    }
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    });
   }
 
 }

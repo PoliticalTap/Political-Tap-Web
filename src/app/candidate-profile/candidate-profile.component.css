@@ -7,3 +7,7 @@
 .row {
   display: table;
 }
+
+.container {
+  margin-left: 20px;
+}
