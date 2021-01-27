@@ -1,22 +1,4 @@
 <!-- <div class="sidenav">
-    <ul>
-        <li>US Primary 2020</li>
-        <ul>
-            <li>Donald Trump</li>
-            <li>Joe Biden</li>
-            <li>Third Party</li>
-        </ul>
-        <li>US Senate District 8</li>
-        <ul>
-            <li>Shrek</li>
-            <li>Micky Mouse</li>
-            <li>Koala</li>
-        </ul>
-    </ul>
-</div> -->
-
-
-<div class="sidenav">
     <button class="dropdown-btn" type="button" data-toggle="dropdown">US Primary 2020
         <i class="fa fa-caret-down" fill="currentColor"></i>
     </button>
@@ -24,5 +6,36 @@
         <a href="#">Donald Trump</a>
         <a href="#">Joe Biden</a>
         <a href="#">Irrelevant</a>
+    </div>
+</div> -->
+
+<div>
+    <div>
+        <p>
+            Showing feed for zip: {{ zip }}
+        </p>
+            <div *ngIf="isZipFormActive; else activeZip">
+                <a [routerLink]="" (click)="onChangeZip()">cancel</a>
+                <div>
+                    <form #zipForm="ngForm" (ngSubmit)="submitNewZip(zipForm.form)">
+                        <input type="text" 
+                                class="form-control" 
+                                name="newZip"
+                                ngModel
+                                #newZip="ngModel"
+                                required
+                                minlength="5" maxlength="5">
+                        <button class="btn btn-primary" [disabled]=!zipForm.valid>Submit</button>
+                    </form>
+                    <div *ngIf="newZip.touched && newZip.errors">
+                        <div class="alert alert-danger">
+                            Please enter a valid zip code.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #activeZip>
+                <a [routerLink]="" (click)="onChangeZip()">change</a>
+            </ng-template>
     </div>
 </div>

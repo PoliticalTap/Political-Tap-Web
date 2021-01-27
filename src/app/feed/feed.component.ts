@@ -7,7 +7,8 @@ import { CandidateService } from '../candidate.service';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  test = true;
+  zip: string = sessionStorage.getItem('zip');
+  isZipFormActive: boolean = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -16,11 +17,25 @@ export class FeedComponent implements OnInit {
       console.log("Location is not supported on this device!");
     }
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.candidateService.getUserZipFromCoords(position.coords.latitude.toString(), position.coords.longitude.toString())
-        .subscribe(zip => {
-          sessionStorage.setItem('zip', zip);
-        });
-    });
+    if (!this.zip) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.candidateService.getUserZipFromCoords(position.coords.latitude.toString(), position.coords.longitude.toString())
+          .subscribe(zip => {
+            this.zip = zip;
+            sessionStorage.setItem('zip', zip);
+          });
+      });
+    }
+  }
+
+  onChangeZip(): void {
+    this.isZipFormActive = !this.isZipFormActive;
+  }
+
+  submitNewZip(form): void {
+    this.zip = form.value.newZip;
+    sessionStorage.setItem('zip', this.zip);
+
+    this.isZipFormActive = false;
   }
 }
