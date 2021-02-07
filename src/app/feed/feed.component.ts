@@ -7,35 +7,49 @@ import { CandidateService } from '../candidate.service';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  zip: string = sessionStorage.getItem('zip');
+  zip: string = sessionStorage.getItem('zip') ?? "Unknown";
   isZipFormActive: boolean = false;
+  zipFormToggleTxt: string = "change";
 
   constructor(private candidateService: CandidateService) { }
 
   ngOnInit(): void {
-    if (!navigator.geolocation) {
-      console.log("Location is not supported on this device!");
+    if (this.zip == "Unknown") {
+      this.getDeviceLocation();
     }
+  }
 
-    if (!this.zip) {
+  getDeviceLocation() {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.candidateService.getUserZipFromCoords(position.coords.latitude.toString(), position.coords.longitude.toString())
           .subscribe(zip => {
             this.zip = zip;
             sessionStorage.setItem('zip', zip);
-          });
+          })
+      }, (error) => {
+        this.toggleZipForm();
       });
+    } else {
+      // Error handling if navigation not supported on device
     }
   }
 
-  onChangeZip(): void {
+  toggleZipForm(): void {
     this.isZipFormActive = !this.isZipFormActive;
+    this.zipFormToggleTxt = !this.isZipFormActive ? "change" : "cancel";
+  }
+
+  onChangeZip(): void {
+    this.toggleZipForm();
   }
 
   submitNewZip(form): void {
-    this.zip = form.value.newZip;
-    sessionStorage.setItem('zip', this.zip);
+    if (form.value.newZip != "") {
+      this.zip = form.value.newZip;
+      sessionStorage.setItem('zip', this.zip);
+    }
 
-    this.isZipFormActive = false;
+    this.toggleZipForm();
   }
 }
