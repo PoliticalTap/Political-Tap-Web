@@ -51,3 +51,10 @@
   float: right;
   padding-right: 8px;
 }
+
+.tweets-container {
+  display: block;
+  margin-left: center;
+  margin-right: center;
+  width: 40%;
+}

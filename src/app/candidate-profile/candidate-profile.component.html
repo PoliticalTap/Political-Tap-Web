@@ -11,11 +11,11 @@
             <div class="leftside">
             <h4>Social Media Links</h4>
                 <ul class="socialmediaicons">
-                    <li><a target="_blank" href="https://www.facebook.com/joebiden/" rel="https://www.facebook.com/joebiden/" ><i class="fa 
+                    <li><a target="_blank" href="https://www.facebook.com/joebiden/" rel="https://www.facebook.com/joebiden/" ><i class="fab 
                 fa-facebook"></i></a></li>
-                    <li><i class="fa fa-instagram"></i></li>
-                    <li><i class="fa fa-twitter"></i></li>
-                    <li><i class="fa fa-youtube"></i></li>
+                    <li><i class="fab fa-instagram"></i></li>
+                    <li><i class="fab fa-twitter"></i></li>
+                    <li><i class="fab fa-youtube"></i></li>
                 </ul>
             </div> 
         </div>
@@ -23,7 +23,7 @@
 </div>
 
 <div>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="padding-bottom: 10px;">
         <li class="nav-item">
             <button class="nav-link active" (click)="changeTab($event)">About</button>
         </li>
@@ -35,12 +35,48 @@
         </li>
     </ul>
 </div>
+ 
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <!-- Tab navs -->
+            <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-mdb-toggle="pill" href="#v-pills-home" role="tab"
+                    aria-controls="v-pills-home" aria-selected="true">Home</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-mdb-toggle="pill" href="#v-pills-profile" role="tab"
+                    aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-mdb-toggle="pill" href="#v-pills-messages" role="tab"
+                    aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+            </div>
+            <!-- Tab navs -->
+        </div>
 
-<div style="margin-left: 20px;" [hidden]="isAboutActive">
+        <div class="col-9">
+            <!-- Tab content -->
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                    aria-labelledby="v-pills-home-tab">
+                    Home content
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    Profile content
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    Messages content
+                </div>
+            </div>
+            <!-- Tab content -->
+        </div>
+    </div>
+</div>
+
+<!-- <div style="margin-left: 20px; padding-top: 10px;" [hidden]="isAboutActive"> -->
+<!-- <div style="margin: auto; width: 50%; padding-top: 10px;" [hidden]="isAboutActive">
     <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
     <div class="panel">
         <div>
-            <div><b>Birth-Date:</b></div>
+            <div><b>Birth-Date:</b></div> 
             <div>{{candidate.birthDate}}</div>
         </div>
         <div class="row no-gutters">
@@ -115,4 +151,4 @@
     <div *ngFor="let tweet of candidateTweets.tweets">
         <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
     </div>
-</div>
+</div> -->

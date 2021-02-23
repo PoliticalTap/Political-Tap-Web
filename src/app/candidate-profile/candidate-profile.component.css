@@ -1,23 +1,21 @@
-.accordion {
+/* .accordion {
   background-color: #dd1111;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 15px;
-  width: 100%;
+  padding: 2px;
+  width: 85%;
   border: none;
   text-align: left;
   font-size: 20px;
   transition: 0.4s;
   font-family: Merriweather, Cambria, Georgia;
-  /* outline-style: solid; */
-  /* outline-color: black; */
   box-shadow: 0 0 0 2px black;
   border-radius: 5px;
 }
 
 .active, .accordion:hover {
-  background-color: #ff0028
+  background-color: #ff0028;
 }
 
 .panel {
@@ -40,4 +38,6 @@
 
 .container {
   margin-left: 20px;
-}
+} */
+
+

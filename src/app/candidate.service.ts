@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class CandidateService {
 
   private url = "https://political-tap.herokuapp.com";
+  // private url = "http://localhost:5000";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -35,5 +36,11 @@ export class CandidateService {
                       .set('longitude', longitude);
     
     return this.httpClient.get(this.url + '/getZipFromLocation', { params });
+  }
+
+  getFeedView(zip: string): Observable<any> {
+    let params = new HttpParams().set('zip', zip);
+    
+    return this.httpClient.get(this.url + '/getFeedFromLocation', { params });
   }
 }

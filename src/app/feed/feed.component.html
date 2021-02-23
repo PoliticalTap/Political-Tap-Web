@@ -9,7 +9,8 @@
     </div>
 </div> -->
 
-<div>
+<!-- <div>
+    <i class="fas fa-map-marker-alt"></i>
     <div>
         <p>
             Showing feed for zip: {{ zip }}
@@ -32,6 +33,41 @@
                 <small id="emailHelp" class="form-text text-muted">We don't store or share your location data
                     with anyone.</small>
             </form>
+            <div *ngIf="newZip.touched && newZip.errors">
+                <div class="alert alert-danger">
+                    Please enter a valid zip code.
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div>
+    <div>
+        <p>
+            Showing feed for zip: {{ zip }}
+            <a [routerLink]="" (click)="onChangeZip()">{{ zipFormToggleTxt }}</a>
+        </p>
+        <div *ngIf="isZipFormActive">
+            <form #zipForm="ngForm" (ngSubmit)="submitNewZip(zipForm.form)">
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <div class="input-group mb-3">
+                        <input class="form-control" name="newZip" placeholder="Enter your zip code." ngModel
+                            #newZip="ngModel" required minlength="5" maxlength="5">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" (click)="getDeviceLocation()">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" [disabled]=!zipForm.valid>Submit</button>
+                    </div>
+                </div>
+                <small id="emailHelp" class="form-text text-muted">We don't store or share your location data
+                    with anyone.</small>
+            </form>
             <!-- <div *ngIf="newZip.touched && newZip.errors">
                 <div class="alert alert-danger">
                     Please enter a valid zip code.
@@ -40,3 +76,14 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="feedInfo != null">
+    <div style="margin: auto; width: 40%;" *ngFor="let tweet of feedInfo.tweets">
+        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+    </div>
+</div>
+<!-- <div [hidden]="isTwitterFeedHidden">
+    <div style="margin: auto; width: 40%;" *ngFor="let tweet of feedInfo.tweets">
+        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+    </div>
+</div> -->
