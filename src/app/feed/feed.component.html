@@ -55,7 +55,7 @@
                         <input class="form-control" name="newZip" placeholder="Enter your zip code." ngModel
                             #newZip="ngModel" required minlength="5" maxlength="5">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" (click)="getDeviceLocation()">
+                                <button class="btn btn-primary" (click)="onUpdateZipThroughDeviceLocation()">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </button>
                             </div>

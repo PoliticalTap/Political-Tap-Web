@@ -17,16 +17,18 @@ export class FeedComponent implements OnInit {
   constructor(private candidateService: CandidateService) { }
 
   async ngOnInit() {
-    if (this.zip == "Unknown") {
-      var test = await this.getDeviceLocation();
-      console.log(test);
-      this.zip = await this.getZipFromCoords(test.coords.latitude.toString(), test.coords.longitude.toString());
+    try {
+      if (this.zip == "Unknown") {
+        var coords = await this.getDeviceLocation();
+        this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
 
-      // this.getDeviceLocation();
-    } 
+        sessionStorage.setItem('zip', this.zip);
+      }
 
-    this.feedInfo = await this.getCandidatesFeed(this.zip);
-    // this.getCandidatesFeed();
+      this.feedInfo = await this.getCandidatesFeed(this.zip);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // getDeviceLocation() {
@@ -55,9 +57,7 @@ export class FeedComponent implements OnInit {
   //   }
   // }
 
-  
-
-  getDeviceLocation() {
+  getDeviceLocation(): Promise<GeolocationPosition> {
     return new Promise<GeolocationPosition>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject);
     });
@@ -68,11 +68,7 @@ export class FeedComponent implements OnInit {
   }
 
   getCandidatesFeed(zipCode) {
-    if (zipCode != "" && "Unknown") {
-      return this.candidateService.getFeedView(zipCode).toPromise();
-    }
-
-    return null;
+    return this.candidateService.getFeedView(zipCode).toPromise();
   }
 
   toggleZipForm(): void {
@@ -84,14 +80,27 @@ export class FeedComponent implements OnInit {
     this.toggleZipForm();
   }
 
-  submitNewZip(form): void {
+  async submitNewZip(form) {
     if (form.value.newZip != "") {
       this.zip = form.value.newZip;
       sessionStorage.setItem('zip', this.zip);
 
-      // this.getCandidatesFeed();
+      this.feedInfo = await this.getCandidatesFeed(this.zip);
     }
 
     this.toggleZipForm();
   }
+
+  async onUpdateZipThroughDeviceLocation() {
+    try {
+      var userPosition = await this.getDeviceLocation();
+      this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
+      this.feedInfo = await this.getCandidatesFeed(this.zip);
+
+      sessionStorage.setItem('zip', this.zip);
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
 }
