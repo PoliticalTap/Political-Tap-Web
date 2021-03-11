@@ -13,7 +13,7 @@ export class CandidateProfileComponent implements OnInit {
   candidateTweets;
   voteHistory;
 
-  isHomeHidden = false;
+  isBioHidden = false;
   isTwitterHidden = true; 
   isVotesHidden = true;
 
@@ -65,7 +65,7 @@ export class CandidateProfileComponent implements OnInit {
   changeTab(event): void {
     var element = event.target.textContent;
 
-    this.isHomeHidden = element !== "Home";
+    this.isBioHidden = element !== "Bio";
     this.isTwitterHidden = element !== "Twitter";
     this.isVotesHidden = element != "Votes";
   }
