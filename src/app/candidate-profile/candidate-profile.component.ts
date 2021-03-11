@@ -11,10 +11,11 @@ export class CandidateProfileComponent implements OnInit {
   candidate_id: string;
   candidate: any;
   candidateTweets;
+  voteHistory;
 
-  isAboutActive: boolean = false;
-  isTwitterFeedActive: boolean = true;
-  isVotesActive: boolean = true;
+  isHomeHidden = false;
+  isTwitterHidden = true; 
+  isVotesHidden = true;
 
   constructor(private route: ActivatedRoute,
     private candidateService : CandidateService) { 
@@ -22,12 +23,13 @@ export class CandidateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.candidate_id = this.route.snapshot.paramMap.get("id");
-    this.getCandidate();
-    this.getCandidateTweets();
+    this.getCandidate(this.candidate_id);
+    this.getCandidateTweets(this.candidate_id);
+    this.getCandidateVoteHistory(this.candidate_id);
   }
 
-  getCandidate() {
-    this.candidateService.getCandidateProfile(this.candidate_id)
+  getCandidate(candidateId) {
+    this.candidateService.getCandidateProfile(candidateId)
       .subscribe(candidateBio => {
         this.candidate = candidateBio;
         console.log(this.candidate);
@@ -44,19 +46,27 @@ export class CandidateProfileComponent implements OnInit {
     panel.hidden = !panel.hidden;
   }
 
-  getCandidateTweets() {
-    this.candidateService.getCandidateTweets(this.candidate_id)
+  getCandidateTweets(candidateId) {
+    this.candidateService.getCandidateTweets(candidateId)
       .subscribe(tweets => {
         this.candidateTweets = tweets;
         console.log(this.candidateTweets);
       });
   }
 
-  changeTab(event) : void {
+  getCandidateVoteHistory(candidateId) {
+    this.candidateService.getCandidateVoteHistory(candidateId)
+      .subscribe(voteHistory => {
+        this.voteHistory = voteHistory;
+        console.log(this.voteHistory);
+      });
+  }
+
+  changeTab(event): void {
     var element = event.target.textContent;
 
-    this.isAboutActive = element !== "About";
-    this.isTwitterFeedActive = element !== "Twitter Feed";
-    this.isVotesActive = element !== "Votes";
+    this.isHomeHidden = element !== "Home";
+    this.isTwitterHidden = element !== "Twitter";
+    this.isVotesHidden = element != "Votes";
   }
 }

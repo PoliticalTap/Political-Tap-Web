@@ -1,10 +1,11 @@
-/* .accordion {
+.accordion {
   background-color: #dd1111;
   color: white;
   font-weight: bold;
   cursor: pointer;
   padding: 2px;
-  width: 85%;
+  /* width: 85%; */
+  width: 100%;
   border: none;
   text-align: left;
   font-size: 20px;
@@ -14,9 +15,9 @@
   border-radius: 5px;
 }
 
-.active, .accordion:hover {
+/* .active, .accordion:hover {
   background-color: #ff0028;
-}
+} */
 
 .panel {
   padding: 15px;
@@ -32,11 +33,14 @@
     float: none;
   }
 
-.row {
+/* .tab-content {
+  background-color: gray;
+} */
+/* .row {
   display: table;
-}
+} */
 
-.container {
+/* .container {
   margin-left: 20px;
 } */
 
