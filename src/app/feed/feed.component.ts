@@ -31,32 +31,6 @@ export class FeedComponent implements OnInit {
     }
   }
 
-  // getDeviceLocation() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       this.candidateService.getUserZipFromCoords(position.coords.latitude.toString(), position.coords.longitude.toString())
-  //         .subscribe(zip => {
-  //           this.zip = zip;
-  //           sessionStorage.setItem('zip', zip);
-  //         })
-  //     }, (error) => {
-  //       this.toggleZipForm();
-  //     });
-  //   } else {
-  //     // Error handling if navigation not supported on device
-  //   }
-  // }
-
-  // getCandidatesFeed() {
-  //   if (this.zip != "Unknown") {
-  //     this.candidateService.getFeedView(this.zip)
-  //       .subscribe(feed => {
-  //         this.feedInfo = feed;
-  //         console.log(feed);
-  //       })
-  //   }
-  // }
-
   getDeviceLocation(): Promise<GeolocationPosition> {
     return new Promise<GeolocationPosition>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject);

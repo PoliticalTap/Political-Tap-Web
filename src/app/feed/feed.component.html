@@ -1,46 +1,3 @@
-<!-- <div class="sidenav">
-    <button class="dropdown-btn" type="button" data-toggle="dropdown">US Primary 2020
-        <i class="fa fa-caret-down" fill="currentColor"></i>
-    </button>
-    <div class="dropdown-container" *ngIf="test">
-        <a href="#">Donald Trump</a>
-        <a href="#">Joe Biden</a>
-        <a href="#">Irrelevant</a>
-    </div>
-</div> -->
-
-<!-- <div>
-    <i class="fas fa-map-marker-alt"></i>
-    <div>
-        <p>
-            Showing feed for zip: {{ zip }}
-            <a [routerLink]="" (click)="onChangeZip()">{{ zipFormToggleTxt }}</a>
-        </p>
-        <div *ngIf="isZipFormActive">
-            <form #zipForm="ngForm" (ngSubmit)="submitNewZip(zipForm.form)">
-                <div class="form-group row">
-                    <div class="col-sm-8">
-                        <input class="form-control" name="newZip" placeholder="Enter your zip code." ngModel
-                            #newZip="ngModel" required minlength="5" maxlength="5">
-                    </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" [disabled]=!zipForm.valid>Submit</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" (click)="getDeviceLocation()">Use Device Location</button>
-                    </div>
-                </div>
-                <small id="emailHelp" class="form-text text-muted">We don't store or share your location data
-                    with anyone.</small>
-            </form>
-            <div *ngIf="newZip.touched && newZip.errors">
-                <div class="alert alert-danger">
-                    Please enter a valid zip code.
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div>
     <div>
         <p>
@@ -82,8 +39,3 @@
         <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
     </div>
 </div>
-<!-- <div [hidden]="isTwitterFeedHidden">
-    <div style="margin: auto; width: 40%;" *ngFor="let tweet of feedInfo.tweets">
-        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
-    </div>
-</div> -->
