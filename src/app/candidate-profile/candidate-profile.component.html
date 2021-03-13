@@ -1,118 +1,139 @@
-<div class="container-fluid" style="padding-top: 10px;">
-    <div class="row"> 
-        <div style="padding-left: 10px;">
-            <img [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
-                style="width: 128; border-radius: 30%;"
-                alt="Card image cap">
-        </div>
+<div class="container" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-3">
 
-        <div class="col-md-9 name">
-            <h2>{{candidate.name}}</h2>
-            <div class="leftside">
-            <h4>Social Media Links</h4>
-                <ul class="socialmediaicons">
-                    <li><a target="_blank" href="https://www.facebook.com/joebiden/" rel="https://www.facebook.com/joebiden/" ><i class="fa 
-                fa-facebook"></i></a></li>
-                    <li><i class="fa fa-instagram"></i></li>
-                    <li><i class="fa fa-twitter"></i></li>
-                    <li><i class="fa fa-youtube"></i></li>
-                </ul>
-            </div> 
+        </div>
+        <div class="col-9">
+
+            <div style="display:inline-block; padding-bottom: 5px;">
+                <img [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
+                    style="width: 128; border-radius: 30%;" alt="Card image cap">
+            </div>
+
+            <div style="display: inline-block; vertical-align: bottom; padding-left: 5px;">
+                <h2>{{candidate.name}}</h2>
+            </div>
         </div>
     </div>
 </div>
-
-<div>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <button class="nav-link active" (click)="changeTab($event)">About</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" (click)="changeTab($event)">Twitter Feed</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" (click)="changeTab($event)">Votes</button>
-        </li>
-    </ul>
-</div>
-
-<div [hidden]="isAboutActive">
-    <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
-    <div class="panel">
-        <div>
-            <div><b>Birth-Date:</b></div>
-            <div>{{candidate.birthDate}}</div>
-        </div>
-        <div class="row no-gutters">
-            <div><b>Gender:</b></div>
-            <div>{{candidate.gender}}</div>
-        </div>
-        <div class="row no-gutters">
-            <div><b>Religion:</b></div>
-            <div>{{candidate.religion}}</div>
-        </div>
-        <div class="row no-gutters">
-            <div><b>Home City:</b></div>
-            <div>{{candidate.homeCity}}, {{candidate.homeState}}</div>
-        </div>
-        <div>
-            <div><b>Family:</b></div>
-            <div>{{candidate.family}}</div>
-        </div>
-    </div>
-    <button class="accordion" (click)="toggleAccordian($event)">Experience</button>
-    <div class="panel">
-        <div>
-            <div><b>Party:</b></div>
-            <div>{{candidate.party}}</div>
-        </div>
-        <div>
-            <div><b>Office:</b></div>
-            <div>Type: {{candidate.office.type}}</div>
-            <div>Position: {{candidate.office.title}}</div>
-            <div>Status: {{candidate.office.status}}</div>
-        </div>
-
-        <div>
-            <b>Education</b>
-            <ul>
-                <div *ngFor="let institution of candidate.education.institution">
-                    <li>{{institution.fullText}}</li>
+ 
+<div style="background-color: #ebebeb; display: block; overflow: auto; height: 100%;">
+    <div class="container">
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills text-center sticky-top" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link" id="v-pills-home-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                        aria-controls="v-pills-home" [ngClass]="{'active': !isBioHidden}">Bio</a>
+                    <a class="nav-link" id="v-pills-profile-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                        aria-controls="v-pills-profile" [ngClass]="{'active': !isTwitterHidden}">Twitter</a>
+                    <a class="nav-link" id="v-pills-messages-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                        aria-controls="v-pills-messages" [ngClass]="{'active': !isVotesHidden}">Votes</a>
                 </div>
-            </ul>
-        </div>
+            </div>
 
-        <div>
-            <b>Professional Experience</b>
-            <ul>
-                <div *ngFor="let experience of candidate.profession.experience">
-                    <li>{{experience.fullText}}</li>
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div [hidden]="isBioHidden" class="tab-pane fade show active" id="home" role="tabpanel"
+                        aria-labelledby="v-pills-home-tab">
+                        <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
+                        <div class="panel">
+                            <div class="row no-gutters">
+                                <div><b>Birth-Date:</b></div>
+                                <div>
+                                    {{candidate.birthDate}}
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div><b>Gender:</b></div>
+                                <div>{{candidate.gender}}</div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div><b>Religion:</b></div>
+                                <div>{{candidate.religion}}</div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div><b>Home City:</b></div>
+                                <div>{{candidate.homeCity}}, {{candidate.homeState}}</div>
+                            </div>
+                            <div>
+                                <div><b>Family:</b></div>
+                                <div>{{candidate.family}}</div>
+                            </div>
+                        </div>
+                        <button class="accordion" (click)="toggleAccordian($event)">Experience</button>
+                        <div class="panel">
+                            <div>
+                                <div><b>Party:</b></div>
+                                <div>{{candidate.party}}</div>
+                            </div>
+                            <div>
+                                <div><b>Office:</b></div>
+                                <div>Type: {{candidate.office.type}}</div>
+                                <div>Position: {{candidate.office.title}}</div>
+                                <div>Status: {{candidate.office.status}}</div>
+                            </div>
+
+                            <div>
+                                <b>Education</b>
+                                <ul>
+                                    <div *ngFor="let institution of candidate.education.institution">
+                                        <li>{{institution.fullText}}</li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <b>Professional Experience</b>
+                                <ul>
+                                    <div *ngFor="let experience of candidate.profession.experience">
+                                        <li>{{experience.fullText}}</li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <b>Political Experience</b>
+                                <ul>
+                                    <div *ngFor="let experience of candidate.political.experience">
+                                        <li>{{experience.fullText}}</li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <b>Organizational Membership</b>
+                                <ul>
+                                    <div *ngFor="let experience of candidate.orgMembership.experience">
+                                        <li>{{experience.fullText}}</li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div [hidden]="isTwitterHidden" class="tab-pane fade show active" id="profile" role="tabpanel"
+                        aria-labelledby="v-pills-profile-tab">
+                        <div *ngFor="let tweet of candidateTweets.tweets">
+                            <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+                        </div>
+                    </div>
+                    <div [hidden]="isVotesHidden" class="tab-pane fade show active" id="messages" role="tabpanel"
+                        aria-labelledby="v-pills-messages-tab">
+                        <div *ngFor="let votes of voteHistory">
+                            <div class="list-group">
+                                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{votes.billNumber}}: {{votes.billTitle}}</h5>
+                                    </div>
+                                    <h6 class="mb-1">Bill Stage: {{votes.stage}}</h6>
+                                    <h6 class="mb-1">Voted: {{votes.vote}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </ul>
+            </div>
         </div>
-
-        <div>
-            <b>Political Experience</b>
-            <ul>
-                <div *ngFor="let experience of candidate.political.experience">
-                    <li>{{experience.fullText}}</li>
-                </div>
-            </ul>
-        </div>
-
-        <div>
-            <b>Organizational Membership</b>
-            <ul>
-                <div *ngFor="let experience of candidate.orgMembership.experience">
-                    <li>{{experience.fullText}}</li>
-                </div>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div [hidden]="isTwitterFeedActive">
-    <div *ngFor="let tweet of candidateTweets.tweets">
-        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
     </div>
 </div>

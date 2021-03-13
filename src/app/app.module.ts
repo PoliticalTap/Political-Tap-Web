@@ -8,6 +8,7 @@ import { FeedComponent } from './feed/feed.component';
 import { BallotComponent } from './ballot/ballot.component';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 import { NgxTweetModule } from "ngx-tweet";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NgxTweetModule } from "ngx-tweet";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     NgxTweetModule
   ],
   providers: [],
