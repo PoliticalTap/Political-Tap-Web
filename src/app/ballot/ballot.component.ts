@@ -8,8 +8,8 @@ import { CandidateService } from '../candidate.service';
   styleUrls: ['./ballot.component.css']
 })
 export class BallotComponent implements OnInit {
-  zip = "45011";
   data: any;
+  loading = true;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -31,7 +31,8 @@ export class BallotComponent implements OnInit {
     this.candidateService.getCandidatesByZip(sessionStorage.getItem('zip'))
       .subscribe(candidates => 
         {
-          this.data = candidates; 
+          this.data = candidates;
+          this.loading = false;
           console.log(this.data);
         }
       );

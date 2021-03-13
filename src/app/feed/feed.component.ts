@@ -13,6 +13,7 @@ export class FeedComponent implements OnInit {
   isZipFormActive: boolean = false;
   zipFormToggleTxt: string = "change";
   feedInfo;
+  loading = true;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -26,6 +27,7 @@ export class FeedComponent implements OnInit {
       }
 
       this.feedInfo = await this.getCandidatesFeed(this.zip);
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }

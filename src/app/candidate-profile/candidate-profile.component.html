@@ -113,8 +113,11 @@
                     </div>
                     <div [hidden]="isTwitterHidden" class="tab-pane fade show active" id="profile" role="tabpanel"
                         aria-labelledby="v-pills-profile-tab">
-                        <div *ngFor="let tweet of candidateTweets.tweets">
+                        <div *ngFor="let tweet of candidateTweets.tweets;">
                             <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+                        </div>
+                        <div *ngIf="tweetsLoading">
+                            <div class="spinner-border"></div>
                         </div>
                     </div>
                     <div [hidden]="isVotesHidden" class="tab-pane fade show active" id="messages" role="tabpanel"

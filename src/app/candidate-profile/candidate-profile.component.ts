@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { CandidateService } from '../candidate.service';
@@ -12,6 +13,7 @@ export class CandidateProfileComponent implements OnInit {
   candidate: any;
   candidateTweets;
   voteHistory;
+  tweetsLoading = true;
 
   isBioHidden = false;
   isTwitterHidden = true; 
@@ -50,6 +52,7 @@ export class CandidateProfileComponent implements OnInit {
     this.candidateService.getCandidateTweets(candidateId)
       .subscribe(tweets => {
         this.candidateTweets = tweets;
+        this.tweetsLoading = false;
         console.log(this.candidateTweets);
       });
   }

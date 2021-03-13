@@ -34,8 +34,14 @@
     </div>
 </div>
 
-<div *ngIf="feedInfo != null">
-    <div style="margin: auto; width: 40%;" *ngFor="let tweet of feedInfo.tweets">
-        <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+<div style="margin: auto; width: 40%;">
+    <div *ngIf="feedInfo != null">
+        <div *ngFor="let tweet of feedInfo.tweets">
+            <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+        </div>
     </div>
+</div>
+
+<div *ngIf="loading" style="margin: auto; width: 0%;">
+    <div class="spinner-border"></div>
 </div>
