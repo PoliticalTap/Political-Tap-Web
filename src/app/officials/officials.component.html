@@ -1,0 +1,26 @@
+<div style="margin: 20px;">
+    <div class="alert alert-primary" role="alert">
+        Notice claim: Our data may not be completely updated for each election as it is still under development.
+    </div>
+
+    <div *ngFor="let item of officials; let i = index;">
+        <button class="accordion" (click)="toggleAccordian($event, i)">{{ item.election }}</button>
+        <div class="panel row">
+            <div *ngFor="let candidate of item.candidates">
+                <div class="col-sm-4" style="padding-bottom: 10px;">
+                    <div class="card" style="width: 256;">
+                        <img class="card-img-top"
+                            [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
+                            alt="Card image cap">
+                        <div class="text-center">
+                            <h5 class="card-title">{{ candidate.name }}</h5>
+                            <p class="card-text">{{ candidate.party }}</p>
+                            <a [routerLink]="['/candidate', candidate.candidate_id]" class="btn btn-profile">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

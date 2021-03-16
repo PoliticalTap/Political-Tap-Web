@@ -49,4 +49,10 @@ export class CandidateService {
     
     return this.httpClient.get(this.url + '/getCandidateVoteHistory', { params });
   }
+
+  getOfficialsList(zip: string): Observable<any> {
+    let params = new HttpParams().set('zip', zip);
+
+    return this.httpClient.get(this.url + '/getOfficialsList', { params });
+  }
 }
