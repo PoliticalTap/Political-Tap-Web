@@ -9,6 +9,7 @@ import { BallotComponent } from './ballot/ballot.component';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 import { NgxTweetModule } from "ngx-tweet";
 import { FormsModule } from '@angular/forms';
+import { OfficialsComponent } from './officials/officials.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     FeedComponent,
     BallotComponent,
     CandidateProfileComponent,
+    OfficialsComponent,
   ],
   imports: [
     BrowserModule,
