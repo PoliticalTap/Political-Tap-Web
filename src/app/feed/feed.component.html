@@ -1,43 +1,40 @@
-<div>
-    <div>
-        <p>
-            Showing feed for zip: {{ zip }}
-            <a [routerLink]="" (click)="onChangeZip()">{{ zipFormToggleTxt }}</a>
-        </p>
-        <div *ngIf="isZipFormActive">
-            <form #zipForm="ngForm" (ngSubmit)="submitNewZip(zipForm.form)">
-                <div class="form-group row">
-                    <div class="col-sm-8">
-                        <div class="input-group mb-3">
+<div class="zip-form">
+    <p>
+        Showing feed for zip: {{ zip }}
+        <a [routerLink]="" (click)="onChangeZip()">{{ zipFormToggleTxt }}</a>
+    </p>
+    <div *ngIf="isZipFormActive">
+        <form #zipForm="ngForm" (ngSubmit)="submitNewZip(zipForm.form)">
+            <div class="form-group X-row">
+                <div class="X-col-sm-10">
+                    <div class="input-group mb-3">
                         <input class="form-control" name="newZip" placeholder="Enter your zip code." ngModel
                             #newZip="ngModel" required minlength="5" maxlength="5">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" (click)="onUpdateZipThroughDeviceLocation()">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </button>
-                            </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" [disabled]=!zipForm.valid>
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="onUpdateZipThroughDeviceLocation()">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" [disabled]=!zipForm.valid>Submit</button>
-                    </div>
                 </div>
-                <small id="emailHelp" class="form-text text-muted">We don't store or share your location data
-                    with anyone.</small>
-            </form>
-            <!-- <div *ngIf="newZip.touched && newZip.errors">
-                <div class="alert alert-danger">
-                    Please enter a valid zip code.
-                </div>
-            </div> -->
-        </div>
+            </div>
+            <small id="emailHelp" class="form-text text-muted">We don't store or share your location data
+                with anyone.</small>
+        </form>
+    </div>
+
+    <div *ngIf="noZip">
+        <p>Zip code not detected. Please enter a valid zipcode.</p>
     </div>
 </div>
 
-<div style="margin: auto; width: 40%;">
+<div style="margin: auto; max-width: 550px;">
     <div *ngIf="feedInfo != null">
-        <div *ngFor="let tweet of feedInfo.tweets">
-            <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
+        <div *ngFor="let tweet of feedInfo.tweets" style="margin: auto;">
+            <ngx-tweet style="width: max-content;" tweetId="{{tweet.id_str}}"></ngx-tweet>
         </div>
     </div>
 </div>

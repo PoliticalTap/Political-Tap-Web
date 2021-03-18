@@ -13,7 +13,8 @@ export class FeedComponent implements OnInit {
   isZipFormActive: boolean = false;
   zipFormToggleTxt: string = "change";
   feedInfo;
-  loading = true;
+  loading = false;
+  noZip = true;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -22,10 +23,16 @@ export class FeedComponent implements OnInit {
       if (this.zip == "Unknown") {
         var coords = await this.getDeviceLocation();
         this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
+        this.noZip = false;
 
         sessionStorage.setItem('zip', this.zip);
       }
+      else
+      {
+        this.noZip = false;
+      }
 
+      this.loading = true;
       this.feedInfo = await this.getCandidatesFeed(this.zip);
       this.loading = false;
     } catch (error) {
