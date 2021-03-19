@@ -6,8 +6,11 @@ import { CandidateService } from '../candidate.service';
   templateUrl: './officials.component.html',
   styleUrls: ['./officials.component.css']
 })
+
 export class OfficialsComponent implements OnInit {
   officials: any;
+  noZip = true;
+  loading = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -26,10 +29,19 @@ export class OfficialsComponent implements OnInit {
   }
 
   getOfficials() {
+    var zip = sessionStorage.getItem('zip');
+    
+    if(zip)
+    {
+      this.noZip = false;
+      this.loading = true;
+    }
+
     this.candidateService.getOfficialsList(sessionStorage.getItem('zip'))
       .subscribe(officials => 
       {
         this.officials = officials;
+        this.loading = false;
         console.log(this.officials);
       }
     );

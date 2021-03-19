@@ -28,10 +28,14 @@
 }
 
 .row .name {
-    display: table-cell;
-    vertical-align: bottom;
-    float: none;
-  }
+  display: table-cell;
+  vertical-align: bottom;
+  float: none;
+}
+
+html, body {
+  overflow-y: hidden;
+}
 
 /* .tab-content {
   background-color: gray;

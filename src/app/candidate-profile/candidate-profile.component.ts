@@ -13,11 +13,21 @@ export class CandidateProfileComponent implements OnInit {
   candidate: any;
   candidateTweets;
   voteHistory;
+  socialMediaLinks;
+
   tweetsLoading = true;
 
   isBioHidden = false;
   isTwitterHidden = true; 
   isVotesHidden = true;
+
+  socialMediaIcons = {
+    "twitter" : "fab fa-twitter-square",
+    "facebook": "fab fa-facebook-square",
+    "instagram" : "fab fa-instagram-square",
+    "youtube" : "fab fa-youtube",
+    "linkedin" : "fab fa-linkedin",
+  };
 
   constructor(private route: ActivatedRoute,
     private candidateService : CandidateService) { 
@@ -28,6 +38,16 @@ export class CandidateProfileComponent implements OnInit {
     this.getCandidate(this.candidate_id);
     this.getCandidateTweets(this.candidate_id);
     this.getCandidateVoteHistory(this.candidate_id);
+
+    this.getCandidateSocialMediaLinks(this.candidate_id);
+  }
+
+  getCandidateSocialMediaLinks(candidateId) {
+    this.candidateService.getSocialMediaLinks(candidateId)
+      .subscribe(socialMediaLinks => {
+        console.log(socialMediaLinks);
+        this.socialMediaLinks = socialMediaLinks;
+      });
   }
 
   getCandidate(candidateId) {
@@ -56,7 +76,7 @@ export class CandidateProfileComponent implements OnInit {
         console.log(this.candidateTweets);
       });
   }
-
+  
   getCandidateVoteHistory(candidateId) {
     this.candidateService.getCandidateVoteHistory(candidateId)
       .subscribe(voteHistory => {
@@ -72,4 +92,6 @@ export class CandidateProfileComponent implements OnInit {
     this.isTwitterHidden = element !== "Twitter";
     this.isVotesHidden = element != "Votes";
   }
+
+
 }

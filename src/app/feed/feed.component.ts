@@ -1,6 +1,4 @@
-import { Position } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { nextTick } from 'process';
 import { CandidateService } from '../candidate.service';
 
 @Component({

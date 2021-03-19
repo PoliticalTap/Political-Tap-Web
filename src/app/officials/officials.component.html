@@ -3,6 +3,10 @@
         Notice claim: Our data may not be completely updated for each election as it is still under development.
     </div>
 
+    <div *ngIf="loading" style="margin: auto; width: 0%; padding-bottom: 15;">
+        <div class="spinner-border" style="vertical-align: center;"></div>
+    </div>
+
     <div *ngFor="let item of officials; let i = index;">
         <button class="accordion" (click)="toggleAccordian($event, i)">{{ item.election }}</button>
         <div class="panel row">

@@ -1,140 +1,175 @@
-<div class="container" style="padding-top: 10px;">
-    <div class="row">
-        <div class="col-3">
+<div>
+    <div class="container" style="padding-top: 10px">
+        <div class="row">
+            <div class="col-3">
 
-        </div>
-        <div class="col-9">
-
-            <div style="display:inline-block; padding-bottom: 5px;">
-                <img [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
-                    style="width: 128; border-radius: 30%;" alt="Card image cap">
             </div>
+            <div class="col-9">
 
-            <div style="display: inline-block; vertical-align: bottom; padding-left: 5px;">
-                <h2>{{candidate.name}}</h2>
+                <div style="display:inline-block; padding-bottom: 5px;">
+                    <img [src]="[candidate.photo? candidate.photo : '/assets/img/profile_default_img.png']"
+                        style="width: 128; border-radius: 30%;" alt="Card image cap">
+                </div>
+
+                <div style="display: inline-block; vertical-align: bottom; padding-left: 5px;">
+                    <h2>{{candidate.name}}</h2>
+                </div>
             </div>
         </div>
     </div>
-</div>
- 
-<div style="background-color: #ebebeb; display: block; overflow: auto; height: 100%;">
-    <div class="container">
-        <div class="row" style="margin-top: 5px;">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills text-center sticky-top" id="v-pills-tab" role="tablist"
-                    aria-orientation="vertical">
-                    <a class="nav-link" id="v-pills-home-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
-                        aria-controls="v-pills-home" [ngClass]="{'active': !isBioHidden}">Bio</a>
-                    <a class="nav-link" id="v-pills-profile-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
-                        aria-controls="v-pills-profile" [ngClass]="{'active': !isTwitterHidden}">Twitter</a>
-                    <a class="nav-link" id="v-pills-messages-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
-                        aria-controls="v-pills-messages" [ngClass]="{'active': !isVotesHidden}">Votes</a>
+
+    <div style="background-color: #ebebeb; display: block; overflow: auto; height: 100%;">
+        <div class="container">
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-3">
+                    <div class="nav flex-column nav-pills text-center sticky-top" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                        <a class="nav-link" id="v-pills-home-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                            aria-controls="v-pills-home" [ngClass]="{'active': !isBioHidden}">Bio</a>
+                        <a class="nav-link" id="v-pills-profile-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                            aria-controls="v-pills-profile" [ngClass]="{'active': !isTwitterHidden}">Twitter</a>
+                        <a class="nav-link" id="v-pills-messages-tab" [routerLink]="" (click)="changeTab($event)" role="tab"
+                            aria-controls="v-pills-messages" [ngClass]="{'active': !isVotesHidden}">Votes</a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-9">
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div [hidden]="isBioHidden" class="tab-pane fade show active" id="home" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
-                        <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
-                        <div class="panel">
-                            <div class="row no-gutters">
-                                <div><b>Birth-Date:</b></div>
+                <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div [hidden]="isBioHidden" class="tab-pane fade show active" id="home" role="tabpanel"
+                            aria-labelledby="v-pills-home-tab">
+                            <button class="accordion" (click)="toggleAccordian($event)">Bio</button>
+                            <div class="panel">
+                                <div class="row no-gutters">
+                                    <div><b>Birth-Date:</b></div>
+                                    <div>
+                                        {{candidate.birthDate}}
+                                    </div>
+                                </div>
+                                <div class="row no-gutters">
+                                    <div><b>Gender:</b></div>
+                                    <div>{{candidate.gender}}</div>
+                                </div>
+                                <div class="row no-gutters">
+                                    <div><b>Religion:</b></div>
+                                    <div>{{candidate.religion}}</div>
+                                </div>
+                                <div class="row no-gutters">
+                                    <div><b>Home City:</b></div>
+                                    <div>{{candidate.homeCity}}, {{candidate.homeState}}</div>
+                                </div>
                                 <div>
-                                    {{candidate.birthDate}}
+                                    <div><b>Family:</b></div>
+                                    <div>{{candidate.family}}</div>
                                 </div>
                             </div>
-                            <div class="row no-gutters">
-                                <div><b>Gender:</b></div>
-                                <div>{{candidate.gender}}</div>
+                            <button class="accordion" (click)="toggleAccordian($event)">Experience</button>
+                            <div class="panel">
+                                <div>
+                                    <div><b>Party:</b></div>
+                                    <div>{{candidate.party}}</div>
+                                </div>
+                                <div>
+                                    <div><b>Office:</b></div>
+                                    <div>Type: {{candidate.office.type}}</div>
+                                    <div>Position: {{candidate.office.title}}</div>
+                                    <div>Status: {{candidate.office.status}}</div>
+                                </div>
+
+                                <div>
+                                    <b>Education</b>
+                                    <ul>
+                                        <div *ngFor="let institution of candidate.education.institution">
+                                            <li>{{institution.fullText}}</li>
+                                        </div>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <b>Professional Experience</b>
+                                    <ul>
+                                        <div *ngFor="let experience of candidate.profession.experience">
+                                            <li>{{experience.fullText}}</li>
+                                        </div>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <b>Political Experience</b>
+                                    <ul>
+                                        <div *ngFor="let experience of candidate.political.experience">
+                                            <li>{{experience.fullText}}</li>
+                                        </div>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <b>Organizational Membership</b>
+                                    <ul>
+                                        <div *ngFor="let experience of candidate.orgMembership.experience">
+                                            <li>{{experience.fullText}}</li>
+                                        </div>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="row no-gutters">
-                                <div><b>Religion:</b></div>
-                                <div>{{candidate.religion}}</div>
-                            </div>
-                            <div class="row no-gutters">
-                                <div><b>Home City:</b></div>
-                                <div>{{candidate.homeCity}}, {{candidate.homeState}}</div>
-                            </div>
-                            <div>
-                                <div><b>Family:</b></div>
-                                <div>{{candidate.family}}</div>
+                            <button class="accordion" (click)="toggleAccordian($event)">Social Media Links</button>
+                            <div class="panel">
+                                <b>Campaign: </b>
+                                <div *ngIf="socialMediaLinks.campaign.length > 0; else noLinksAvailable">
+                                    <ul>
+                                        <div *ngFor="let socialMedia of socialMediaLinks.campaign">
+                                            <li>
+                                                <a [href]="socialMedia.address" target="_blank" rel="noopener noreferrer">
+                                                    <i [ngClass]="socialMediaIcons[socialMedia.type]"></i>
+                                                    {{socialMedia.address}}
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                                
+                                <br/>
+                                <b>Office: </b>
+                                <div *ngIf="socialMediaLinks.office.length > 0; else noLinksAvailable">
+                                    <ul>
+                                        <div *ngFor="let socialMedia of socialMediaLinks.office">
+                                            <li>
+                                                <a [href]="socialMedia.address" target="_blank" rel="noopener noreferrer">
+                                                    <i [ngClass]="socialMediaIcons[socialMedia.type]"></i>
+                                                    {{socialMedia.address}}
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+
+                                <ng-template #noLinksAvailable>No links available</ng-template>
                             </div>
                         </div>
-                        <button class="accordion" (click)="toggleAccordian($event)">Experience</button>
-                        <div class="panel">
-                            <div>
-                                <div><b>Party:</b></div>
-                                <div>{{candidate.party}}</div>
+                        <div [hidden]="isTwitterHidden" class="tab-pane fade show active" id="profile" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
+                            <div *ngFor="let tweet of candidateTweets.tweets;">
+                                <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
                             </div>
-                            <div>
-                                <div><b>Office:</b></div>
-                                <div>Type: {{candidate.office.type}}</div>
-                                <div>Position: {{candidate.office.title}}</div>
-                                <div>Status: {{candidate.office.status}}</div>
-                            </div>
-
-                            <div>
-                                <b>Education</b>
-                                <ul>
-                                    <div *ngFor="let institution of candidate.education.institution">
-                                        <li>{{institution.fullText}}</li>
-                                    </div>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <b>Professional Experience</b>
-                                <ul>
-                                    <div *ngFor="let experience of candidate.profession.experience">
-                                        <li>{{experience.fullText}}</li>
-                                    </div>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <b>Political Experience</b>
-                                <ul>
-                                    <div *ngFor="let experience of candidate.political.experience">
-                                        <li>{{experience.fullText}}</li>
-                                    </div>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <b>Organizational Membership</b>
-                                <ul>
-                                    <div *ngFor="let experience of candidate.orgMembership.experience">
-                                        <li>{{experience.fullText}}</li>
-                                    </div>
-                                </ul>
+                            <div *ngIf="tweetsLoading">
+                                <div class="spinner-border"></div>
                             </div>
                         </div>
-                    </div>
-                    <div [hidden]="isTwitterHidden" class="tab-pane fade show active" id="profile" role="tabpanel"
-                        aria-labelledby="v-pills-profile-tab">
-                        <div *ngFor="let tweet of candidateTweets.tweets;">
-                            <ngx-tweet tweetId="{{tweet.id_str}}"></ngx-tweet>
-                        </div>
-                        <div *ngIf="tweetsLoading">
-                            <div class="spinner-border"></div>
-                        </div>
-                    </div>
-                    <div [hidden]="isVotesHidden" class="tab-pane fade show active" id="messages" role="tabpanel"
-                        aria-labelledby="v-pills-messages-tab">
-                        <div *ngFor="let votes of voteHistory">
-                            <div class="list-group">
-                                <div class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{votes.billNumber}}: {{votes.billTitle}}</h5>
+                        <div [hidden]="isVotesHidden" class="tab-pane fade show active" id="messages" role="tabpanel"
+                            aria-labelledby="v-pills-messages-tab">
+                            <div *ngFor="let votes of voteHistory">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{votes.billNumber}}: {{votes.billTitle}}</h5>
+                                        </div>
+                                        <h6 class="mb-1">Bill Stage: {{votes.stage}}</h6>
+                                        <h6 class="mb-1">Voted: {{votes.vote}}</h6>
                                     </div>
-                                    <h6 class="mb-1">Bill Stage: {{votes.stage}}</h6>
-                                    <h6 class="mb-1">Voted: {{votes.vote}}</h6>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
