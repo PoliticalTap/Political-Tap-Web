@@ -49,3 +49,16 @@
     background: #1505bb;
 }
 
+::selection 
+{
+    color: white; 
+    background: #1505bb;
+}
+
+::-moz-selection 
+{ 
+    /* Code for Firefox */
+    color: white;
+    background: #1505bb;
+}
+

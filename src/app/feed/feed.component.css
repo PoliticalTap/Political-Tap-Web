@@ -68,3 +68,16 @@
   margin: auto;
   max-width: 550px;
 }
+
+::selection 
+{
+    color: white; 
+    background: #1505bb;
+}
+
+::-moz-selection 
+{ 
+    /* Code for Firefox */
+    color: white;
+    background: #1505bb;
+}

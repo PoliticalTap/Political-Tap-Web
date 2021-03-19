@@ -62,7 +62,6 @@ export class CandidateProfileComponent implements OnInit {
     var panel = element.nextElementSibling;
 
     element.classList.toggle("active");
-    // this.data[index].isActive = !this.data[index].isActive;
 
     panel.hidden = !panel.hidden;
   }
@@ -72,7 +71,6 @@ export class CandidateProfileComponent implements OnInit {
       .subscribe(tweets => {
         this.candidateTweets = tweets;
         this.tweetsLoading = false;
-        console.log(this.candidateTweets);
       });
   }
   
@@ -91,6 +89,9 @@ export class CandidateProfileComponent implements OnInit {
     this.isTwitterHidden = element !== "Twitter";
     this.isVotesHidden = element != "Votes";
   }
-
-
+  
+  // Use Array.isArray in NGIF
+  isArray(comparator) {
+    return Array.isArray(comparator);
+  }
 }

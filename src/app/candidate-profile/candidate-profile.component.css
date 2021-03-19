@@ -63,6 +63,29 @@ html, body {
   background-color: lightgray;
 }
 
+.nav-link.active
+{
+  background-color: #150cbb;
+}
+
+.btn 
+{
+  font-family: Merriweather, Cambria, Georgia;
+}
+
+::selection 
+{
+    color: white; 
+    background: #1505bb;
+}
+
+::-moz-selection 
+{ 
+    /* Code for Firefox */
+    color: white;
+    background: #1505bb;
+}
+
 /* .tab-content {
   background-color: gray;
 } */
