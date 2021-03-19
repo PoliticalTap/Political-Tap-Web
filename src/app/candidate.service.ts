@@ -55,4 +55,10 @@ export class CandidateService {
 
     return this.httpClient.get(this.url + '/getOfficialsList', { params });
   }
+
+  getSocialMediaLinks(candidateId: string): Observable<any> {
+    let params = new HttpParams().set('candidate_id', candidateId);
+    
+    return this.httpClient.get(this.url + '/getSocialMediaLinks', { params });
+  }
 }

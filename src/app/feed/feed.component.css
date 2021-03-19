@@ -3,6 +3,7 @@
   width: 200px;
   position: sticky;
   background-color: #111;
+  margin: auto;
 }
 
 /* Style the sidenav links and the dropdown button */
@@ -15,9 +16,10 @@
   border: none;
   background: none;
   width:100%;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   outline: none;
+  margin: auto;
 }
 
 /* On mouse-over */
@@ -27,7 +29,7 @@
 
 /* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin: auto; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
@@ -36,6 +38,7 @@
 .active {
   background-color: green;
   color: white;
+  margin: auto;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
@@ -44,12 +47,14 @@
   display: block;
   background-color: #262626;
   padding-left: 8px;
+  margin: auto;
 }
 
 /* Optional: Style the caret down icon */
 .fa-caret-down {
   float: right;
   padding-right: 8px;
+  margin: auto;
 }
 
 .tweets-container {
@@ -57,4 +62,22 @@
   margin-left: center;
   margin-right: center;
   width: 40%;
+}
+
+.zip-form {
+  margin: auto;
+  max-width: 550px;
+}
+
+::selection 
+{
+    color: white; 
+    background: #1505bb;
+}
+
+::-moz-selection 
+{ 
+    /* Code for Firefox */
+    color: white;
+    background: #1505bb;
 }
