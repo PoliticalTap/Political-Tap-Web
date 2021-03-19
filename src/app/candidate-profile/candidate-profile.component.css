@@ -37,6 +37,32 @@ html, body {
   overflow-y: hidden;
 }
 
+.yes
+{
+  background-color: #c1ffcc;
+}
+
+
+.no
+{
+  background-color: #ffc1cc;
+}
+
+.did-not-vote
+{
+  background-color: lemonchiffon;
+}
+
+.sponsor, .co-sponsor
+{
+  background-color: lightblue;
+}
+
+.unknown-vote
+{
+  background-color: lightgray;
+}
+
 /* .tab-content {
   background-color: gray;
 } */

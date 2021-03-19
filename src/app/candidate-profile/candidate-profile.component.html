@@ -158,12 +158,12 @@
                             aria-labelledby="v-pills-messages-tab">
                             <div *ngFor="let votes of voteHistory">
                                 <div class="list-group">
-                                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{votes.billNumber}}: {{votes.billTitle}}</h5>
-                                        </div>
-                                        <h6 class="mb-1">Bill Stage: {{votes.stage}}</h6>
-                                        <h6 class="mb-1">Voted: {{votes.vote}}</h6>
+                                    <div [ngClass]="votes.vote.toLowerCase().split(' ').join('-')" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{votes.billNumber}}: {{votes.billTitle}}</h5>
+                                            </div>
+                                            <h6 class="mb-1">Bill Stage: {{votes.stage}}</h6>
+                                            <h6 class="mb-1">Voted: {{votes.vote}}</h6>
                                     </div>
                                 </div>
                             </div>
