@@ -8,12 +8,14 @@ import { CandidateService } from '../candidate.service';
   styleUrls: ['./ballot.component.css']
 })
 export class BallotComponent implements OnInit {
-  zip: string = sessionStorage.getItem('zip') ?? "Unknown";
+  zip: string = localStorage.getItem('zip') ?? "Unknown";
 
   data: any;
   noZip = true;
   loading = false;
   isNoticeClaimActive = true;
+  isSameZip: boolean = false;
+  isLocationDenied = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -23,7 +25,7 @@ export class BallotComponent implements OnInit {
         var coords = await this.getDeviceLocation();
         this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
 
-        sessionStorage.setItem('zip', this.zip);
+        localStorage.setItem('zip', this.zip);
       } else {
 
       }
@@ -32,7 +34,9 @@ export class BallotComponent implements OnInit {
       this.loading = false;
 
     } catch (error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
     }
   }
 
@@ -47,7 +51,7 @@ export class BallotComponent implements OnInit {
   }
 
   getCandidates() {
-    var zip = sessionStorage.getItem('zip');
+    var zip = localStorage.getItem('zip');
 
     if(zip) {
       this.noZip = false;
@@ -71,20 +75,34 @@ export class BallotComponent implements OnInit {
     try {
       var userPosition = await this.getDeviceLocation();
       this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
-      sessionStorage.setItem('zip', this.zip);
+      localStorage.setItem('zip', this.zip);
 
       this.data = await this.getCandidates();
       this.loading = false;
 
     } catch(error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
     }
   }
 
   async submitNewZip(form) {
-    if (form.value.newZip != "") {
-      this.zip = form.value.newZip;
-      sessionStorage.setItem('zip', this.zip);
+    var newZip = form.value.newZip;
+
+    if (newZip == this.zip) {
+      this.isSameZip = true;
+
+      setTimeout(() => {
+        this.isSameZip = false;
+      }, 5000);
+
+      return;
+    }
+
+    if (newZip != "") {
+      this.zip = newZip;
+      localStorage.setItem('zip', this.zip);
 
       this.data = await this.getCandidates();
       this.loading = false;
@@ -93,5 +111,9 @@ export class BallotComponent implements OnInit {
 
   onCloseNoticeClaim() {
     this.isNoticeClaimActive = false;
+  }
+
+  onCloseLocationError() {
+    this.isLocationDenied = false;
   }
 }

@@ -3,6 +3,13 @@
         <button class="close" (click)="onCloseNoticeClaim()">×</button>
         <span>Notice claim: Our data may not be completely updated for each election as it is still under development.</span>
     </div>
+    <div class="alert alert-primary" role="alert" *ngIf="isSameZip">
+        <span>The zip code you entered is already being displayed!</span>
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="isLocationDenied">
+        <button class="close" (click)="onCloseLocationError()">×</button>
+        <span>Please enable location services in your browser to use this feature!</span>
+    </div>
 
 <div class="zip-form">
     <p>
@@ -13,12 +20,12 @@
             <div class="X-col-sm-10">
                 <div class="input-group mb-3">
                     <input class="form-control" name="newZip" placeholder="Enter your zip code." ngModel #newZip="ngModel"
-                        required minlength="5" maxlength="5">
+                        required minlength="5" maxlength="5" pattern="[0-9]*">
                     <div class="input-group-append">
-                        <button style="background-color: #1505bb" class="btn btn-primary" [disabled]=!zipForm.valid>
+                        <button style="background-color: #1505bb" class="btn btn-primary" [disabled]="!zipForm.valid || loading">
                             <i class="fas fa-arrow-circle-right"></i>
                         </button>
-                        <button style="background-color: #1505bb" type="button" class="btn btn-primary" (click)="onUpdateZipThroughDeviceLocation()">
+                        <button style="background-color: #1505bb" type="button" class="btn btn-primary" (click)="onUpdateZipThroughDeviceLocation()" [disabled]="loading">
                             <i class="fas fa-map-marker-alt"></i>
                         </button>
                     </div>
