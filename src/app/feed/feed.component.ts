@@ -7,12 +7,14 @@ import { CandidateService } from '../candidate.service';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  zip: string = sessionStorage.getItem('zip') ?? "Unknown";
+  zip: string = localStorage.getItem('zip') ?? "Unknown";
   isZipFormActive: boolean = false;
+  isSameZip: boolean = false;
   zipFormToggleTxt: string = "change";
   feedInfo;
   loading = false;
   noZip = true;
+  isLocationDenied = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -23,7 +25,7 @@ export class FeedComponent implements OnInit {
         this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
         this.noZip = false;
 
-        sessionStorage.setItem('zip', this.zip);
+        localStorage.setItem('zip', this.zip);
       }
       else
       {
@@ -34,7 +36,9 @@ export class FeedComponent implements OnInit {
       this.feedInfo = await this.getCandidatesFeed(this.zip);
       this.loading = false;
     } catch (error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
     }
   }
 
@@ -62,25 +66,49 @@ export class FeedComponent implements OnInit {
   }
 
   async submitNewZip(form) {
-    if (form.value.newZip != "") {
-      this.zip = form.value.newZip;
-      sessionStorage.setItem('zip', this.zip);
+    var newZip = form.value.newZip;
+
+    if (newZip == this.zip) {
+      this.isSameZip = true;
+
+      setTimeout(() => {
+        this.isSameZip = false;
+      }, 5000);
+
+      return;
+    }
+
+    this.loading = true;
+
+    if (newZip != "") {
+      this.zip = newZip;
+      localStorage.setItem('zip', this.zip);
 
       this.feedInfo = await this.getCandidatesFeed(this.zip);
     }
 
+    this.loading = false;
     this.toggleZipForm();
+  }
+
+  onCloseLocationError() {
+    this.isLocationDenied = false;
   }
 
   async onUpdateZipThroughDeviceLocation() {
     try {
+      this.loading = true;
       var userPosition = await this.getDeviceLocation();
       this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
       this.feedInfo = await this.getCandidatesFeed(this.zip);
 
-      sessionStorage.setItem('zip', this.zip);
+      localStorage.setItem('zip', this.zip);
     } catch(error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
+    } finally {
+      this.loading = false;
     }
   }
 

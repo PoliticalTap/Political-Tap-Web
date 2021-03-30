@@ -8,11 +8,13 @@ import { CandidateService } from '../candidate.service';
 })
 
 export class OfficialsComponent implements OnInit {
-  zip: string = sessionStorage.getItem('zip') ?? "Unknown";
+  zip: string = localStorage.getItem('zip') ?? "Unknown";
 
   officials: any;
   noZip = true;
   loading = false;
+  isSameZip : boolean = false;
+  isLocationDenied = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -22,7 +24,7 @@ export class OfficialsComponent implements OnInit {
         var coords = await this.getDeviceLocation();
         this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
 
-        sessionStorage.setItem('zip', this.zip);
+        localStorage.setItem('zip', this.zip);
       } else {
 
       }
@@ -31,7 +33,9 @@ export class OfficialsComponent implements OnInit {
       this.loading = false;
 
     } catch (error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
     }
   }
 
@@ -49,13 +53,15 @@ export class OfficialsComponent implements OnInit {
     try {
       var userPosition = await this.getDeviceLocation();
       this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
-      sessionStorage.setItem('zip', this.zip);
+      localStorage.setItem('zip', this.zip);
 
       this.officials = await this.getOfficials();
       this.loading = false;
 
     } catch(error) {
-      console.log(error);
+      if (error instanceof GeolocationPositionError) {
+        this.isLocationDenied = true;
+      }
     }
   }
   
@@ -70,7 +76,7 @@ export class OfficialsComponent implements OnInit {
   }
 
   async getOfficials() {
-    var zip = sessionStorage.getItem('zip');
+    var zip = localStorage.getItem('zip');
     
     if(zip)
     {
@@ -82,13 +88,28 @@ export class OfficialsComponent implements OnInit {
   }
 
   async submitNewZip(form) {
-    if (form.value.newZip != "") {
+    var newZip = form.value.newZip;
+
+    if (newZip == this.zip) {
+      this.isSameZip = true;
+
+      setTimeout(() => {
+        this.isSameZip = false;
+      }, 5000);
+
+      return;
+    }
+
+    if (newZip != "") {
       this.zip = form.value.newZip;
-      sessionStorage.setItem('zip', this.zip);
+      localStorage.setItem('zip', this.zip);
 
       this.officials = await this.getOfficials();
       this.loading = false;
     }
   }
 
+  onCloseLocationError() {
+    this.isLocationDenied = false;
+  }
 }
