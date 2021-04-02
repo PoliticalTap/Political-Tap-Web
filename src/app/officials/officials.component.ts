@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from '../candidate.service';
 
@@ -15,6 +16,7 @@ export class OfficialsComponent implements OnInit {
   loading = false;
   isSameZip : boolean = false;
   isLocationDenied = false;
+  isApiError = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -25,17 +27,15 @@ export class OfficialsComponent implements OnInit {
         this.zip = await this.getZipFromCoords(coords.coords.latitude.toString(), coords.coords.longitude.toString());
 
         localStorage.setItem('zip', this.zip);
-      } else {
-
       }
 
-      this.officials = await this.getOfficials();
-      this.loading = false;
+      this.officials = await this.getOfficials(this.zip);
 
     } catch (error) {
-      if (error instanceof GeolocationPositionError) {
-        this.isLocationDenied = true;
-      }
+      this.isApiError = error instanceof HttpErrorResponse;
+      this.isLocationDenied = error instanceof GeolocationPositionError;
+    } finally {
+      this.loading = false;
     }
   }
 
@@ -50,18 +50,20 @@ export class OfficialsComponent implements OnInit {
   }
 
   async onUpdateZipThroughDeviceLocation() {
+    this.isApiError = false;
+
     try {
       var userPosition = await this.getDeviceLocation();
       this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
+      this.officials = await this.getOfficials(this.zip);
+
       localStorage.setItem('zip', this.zip);
 
-      this.officials = await this.getOfficials();
-      this.loading = false;
-
     } catch(error) {
-      if (error instanceof GeolocationPositionError) {
-        this.isLocationDenied = true;
-      }
+      this.isLocationDenied = error instanceof GeolocationPositionError;
+      this.isApiError = error instanceof HttpErrorResponse;
+    } finally {
+      this.loading = false;
     }
   }
   
@@ -75,9 +77,7 @@ export class OfficialsComponent implements OnInit {
       panel.hidden = !panel.hidden;
   }
 
-  async getOfficials() {
-    var zip = localStorage.getItem('zip');
-    
+  async getOfficials(zip) {
     if(zip)
     {
       this.noZip = false;
@@ -89,6 +89,7 @@ export class OfficialsComponent implements OnInit {
 
   async submitNewZip(form) {
     var newZip = form.value.newZip;
+    this.isApiError = false;
 
     if (newZip == this.zip) {
       this.isSameZip = true;
@@ -101,11 +102,17 @@ export class OfficialsComponent implements OnInit {
     }
 
     if (newZip != "") {
-      this.zip = form.value.newZip;
-      localStorage.setItem('zip', this.zip);
+      try {
+        this.officials = await this.getOfficials(newZip);
 
-      this.officials = await this.getOfficials();
-      this.loading = false;
+        this.zip = newZip;
+        localStorage.setItem('zip', this.zip);
+      } catch (error) {
+        this.isApiError = error instanceof HttpErrorResponse;
+        this.isLocationDenied = error instanceof GeolocationPositionError;
+      } finally {
+        this.loading = false;
+      }
     }
   }
 
