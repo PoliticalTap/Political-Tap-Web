@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from '../candidate.service';
 
@@ -14,7 +15,9 @@ export class FeedComponent implements OnInit {
   feedInfo;
   loading = false;
   noZip = true;
+
   isLocationDenied = false;
+  isApiError = false;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -34,11 +37,12 @@ export class FeedComponent implements OnInit {
 
       this.loading = true;
       this.feedInfo = await this.getCandidatesFeed(this.zip);
-      this.loading = false;
+      this.noZip = false;
     } catch (error) {
-      if (error instanceof GeolocationPositionError) {
-        this.isLocationDenied = true;
-      }
+      this.isLocationDenied = error instanceof GeolocationPositionError;
+      this.isApiError = error instanceof HttpErrorResponse;
+    } finally {
+      this.loading = false;
     }
   }
 
@@ -67,24 +71,32 @@ export class FeedComponent implements OnInit {
 
   async submitNewZip(form) {
     var newZip = form.value.newZip;
+    this.loading = true;
 
     if (newZip == this.zip) {
-      this.isSameZip = true;
+      if (!this.isApiError) {
+        this.isSameZip = true;
+        setTimeout(() => {
+          this.isSameZip = false;
+        }, 5000);
+      } 
 
-      setTimeout(() => {
-        this.isSameZip = false;
-      }, 5000);
-
+      this.loading = false;
       return;
     }
 
-    this.loading = true;
+    this.isApiError = false;
 
     if (newZip != "") {
-      this.zip = newZip;
-      localStorage.setItem('zip', this.zip);
+      try {
+        this.feedInfo = await this.getCandidatesFeed(newZip);
 
-      this.feedInfo = await this.getCandidatesFeed(this.zip);
+        this.zip = newZip;
+        localStorage.setItem('zip', this.zip);
+        this.noZip = false;
+      } catch (error) {
+        this.isApiError = error instanceof HttpErrorResponse;
+      }
     }
 
     this.loading = false;
@@ -98,11 +110,14 @@ export class FeedComponent implements OnInit {
   async onUpdateZipThroughDeviceLocation() {
     try {
       this.loading = true;
+      this.isApiError = false;
+
       var userPosition = await this.getDeviceLocation();
       this.zip = await this.getZipFromCoords(userPosition.coords.latitude.toString(), userPosition.coords.longitude.toString());
       this.feedInfo = await this.getCandidatesFeed(this.zip);
 
       localStorage.setItem('zip', this.zip);
+      this.noZip = false;
     } catch(error) {
       if (error instanceof GeolocationPositionError) {
         this.isLocationDenied = true;

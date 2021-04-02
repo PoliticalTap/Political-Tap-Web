@@ -6,7 +6,11 @@
 
     <div class="alert alert-warning" role="alert" *ngIf="isLocationDenied">
         <button class="close" (click)="onCloseLocationError()">×</button>
-        <span>Please enable location services in your browser to use this feature!</span>
+        <span>Please enable location services in your browser to update zip through device location!</span>
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="isApiError">
+        <span>There was an error processing your request! Please make sure you've provided a valid zip code and try again!</span>
     </div>
 
     <p>
